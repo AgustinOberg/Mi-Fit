@@ -19,3 +19,6 @@ yarn-error.log
 
 expo-env.d.ts
 # @end expo-cli
+# This folders will be created for each prebuild
+android/
+ios/
