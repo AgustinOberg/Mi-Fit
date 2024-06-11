@@ -47,7 +47,8 @@ const ListItem = ({ item }: { item: Exercise }) => {
           <Text
             style={styles.listItemTitle}
             lineBreakStrategyIOS="push-out"
-            lineBreakMode="tail"
+            textBreakStrategy="balanced"
+            lineBreakMode="clip"
             numberOfLines={2}
           >
             {item.title}
