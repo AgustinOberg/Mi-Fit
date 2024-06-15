@@ -8,7 +8,7 @@ import UserPostHeader from '@/components/social/user-post-header';
 
 const HomePage = () => {
   const router = useRouter();
-  console.log('asdsaidn');
+
   return (
     <ScreenContainer title="Inicio">
       <View style={{ gap: 20 }}>

@@ -32,7 +32,7 @@ const RoutineId = () => {
             title="Rutina para romperse los abdominales"
             exercises={[
               {
-                title: 'Burpee con flexiones Burpee con flexiones',
+                title: 'Burpee con flexiones',
                 subtitle: 'Subtitle 1',
                 weight: 10,
                 repetitions: 10,

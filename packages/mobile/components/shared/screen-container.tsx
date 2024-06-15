@@ -11,11 +11,20 @@ interface Props {
   withScroll?: boolean;
   title?: string;
   children?: React.ReactNode;
+  withInsets?: boolean;
 }
 
-const ScreenContainer = ({ withScroll, title, children }: Props) => {
+const ScreenContainer = ({
+  withScroll,
+  title,
+  withInsets = true,
+  children,
+}: Props) => {
   const insets = useSafeAreaInsets();
-  const styles = useMemo(() => stylesFnc(insets), [insets]);
+  const styles = useMemo(
+    () => stylesFnc(insets, withInsets),
+    [insets, withInsets]
+  );
 
   const Container = useMemo(() => {
     return withScroll ? ScrollView : View;
@@ -32,11 +41,11 @@ const ScreenContainer = ({ withScroll, title, children }: Props) => {
 
 export default ScreenContainer;
 
-const stylesFnc = (insets: EdgeInsets) =>
+const stylesFnc = (insets: EdgeInsets, withInsets: boolean) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: insets.top,
+      paddingTop: withInsets ? insets.top : scale(15),
       paddingHorizontal: scale(15),
     },
     title: {

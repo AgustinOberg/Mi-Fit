@@ -52,7 +52,7 @@ const UserPostHeader: React.FC<Props> = ({
       </Pressable>
       {ctaLabel && (
         <Button
-          variant="outlined"
+          variant="filled-secondary"
           style={styles.button}
           textStyle={styles.buttonText}
           onPress={ctaAction}
@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
     height: scale(30),
     paddingVertical: 0,
     paddingHorizontal: scale(14),
-    backgroundColor: 'transparent',
   },
   buttonText: {
     fontSize: scale(14),

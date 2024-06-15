@@ -27,9 +27,11 @@ interface Props extends PressableProps {
   children: React.ReactNode;
   textStyle?: StyleProp<TextStyle>;
   style?: StyleProp<ViewStyle>;
-  preffix?: React.JSXElementConstructor<{ style?: StyleProp<TextStyle> }>;
+  prefix?: React.JSXElementConstructor<{ style?: StyleProp<TextStyle> }>;
+  suffix?: React.JSXElementConstructor<{ style?: StyleProp<TextStyle> }>;
   name?: string;
   properties?: Record<string, any>;
+  withCustomChild?: boolean;
 }
 
 type VariantValues = {
@@ -42,15 +44,15 @@ type VariantValues = {
 
 const variantStyles: { [key in ButtonVariant]: VariantValues } = {
   'filled-primary': {
-    backgroundColor: primary[600],
+    backgroundColor: primary[900],
     textColor: white,
     weight: 500,
     borderColor: 'transparent',
-    pressedColor: primary[700],
+    pressedColor: hex2rgba(primary[900], 0.9),
   },
   'filled-secondary': {
     backgroundColor: primary[100],
-    textColor: primary[700],
+    textColor: primary[900],
     weight: 500,
     borderColor: 'transparent',
     pressedColor: primary[200],
@@ -59,12 +61,12 @@ const variantStyles: { [key in ButtonVariant]: VariantValues } = {
     backgroundColor: white,
     textColor: gray[700],
     weight: 500,
-    borderColor: primary[300],
+    borderColor: primary[200],
     pressedColor: gray[100],
   },
 
   text: {
-    backgroundColor: primary[25],
+    backgroundColor: 'transparent',
     textColor: primary[600],
     weight: 500,
     borderColor: 'transparent',
@@ -77,10 +79,12 @@ const Button = ({
   children,
   style,
   textStyle,
-  preffix: Preffix,
+  prefix: Prefix,
+  suffix: Suffix,
   name,
   properties,
   onPress: _onPress,
+  withCustomChild,
   ...rest
 }: Props) => {
   const variantStyle = useMemo(() => variantStyles[variant], [variant]);
@@ -109,14 +113,19 @@ const Button = ({
       onPress={onPress}
       {...rest}
     >
-      {Preffix && <Preffix />}
-      <Text
-        weight={variantStyle.weight}
-        numberOfLines={2}
-        style={[styles.text, textStyle]}
-      >
-        {children}
-      </Text>
+      {Prefix && <Prefix />}
+      {withCustomChild ? (
+        children
+      ) : (
+        <Text
+          weight={variantStyle.weight}
+          numberOfLines={2}
+          style={[styles.text, textStyle]}
+        >
+          {children}
+        </Text>
+      )}
+      {Suffix && <Suffix />}
     </Pressable>
   );
 };
@@ -134,7 +143,7 @@ const stylesFnc = (variantStyle: VariantValues) =>
       paddingHorizontal: scale(18),
       flexDirection: 'row',
       gap: scale(5),
-      borderWidth: 1,
+      borderWidth: scale(1.2),
       borderColor: variantStyle.borderColor,
     },
     text: {
